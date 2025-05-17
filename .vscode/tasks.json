@@ -1,14 +1,21 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Build Main",
-            "type": "shell",
-            "command": "g++ -c main.cpp && g++ main.o -o sfml-app -lsfml-network -lsfml-system",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build SFML Win64",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "-B", "build-mingw",
+        "-DCMAKE_TOOLCHAIN_FILE=cmake/mingw-toolchain.cmake",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "."
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Compile",
+      "dependsOn": "Build SFML Win64"
+    }
+  ]
 }
